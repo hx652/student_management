@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>课程名称</th>
+                <th>课程编号</th>
+                <th>课堂号</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in page_obj %}
+            <tr>
+                <td>{{ course.0 }}</td>
+                <td>{{ course.1 }}</td>
+                <td>{{ course.2 }}</td>
+                <td><a href="{% url 'course_management_basic' cid=course.1 course_number=course.2 %}" class="btn btn-info">管理</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- 分页控件 -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">第一页</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+        {% endif %} 
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">第 {{ page_obj.number }} 页, 共 {{ page_obj.paginator.num_pages }} 页</a>
+        </li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">最后一页</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>
+{% endblock %}

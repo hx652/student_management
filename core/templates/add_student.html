@@ -1,0 +1,56 @@
+{% extends "course_management_base.html" %}
+
+{% block title %}
+    <title>Course Management</title>
+    <script>
+        // 当文档加载完成后执行
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 检查Django传递的变量
+            if ("{{ result }}" === "0") {
+                alert('添加成功');
+            }
+            else if("{{ result }}" === "-1") {
+                alert('该学生已选中这门课')
+            }
+            else if("{{ result }}" === "-2") {
+                alert('课堂已满')
+            }
+            else if("{{ result }}" === "-3") {
+                alert('不处于选课状态')
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- 表单 -->
+    <form method="post" class="form-inline mb-3">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group mx-sm-3 mb-2">
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary mb-2">提交</button>
+    </form>
+
+    <!-- 学生列表 -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in student_list %}
+            <tr>
+                <td>{{ student.0 }}</td>
+                <td>{{ student.1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Course Management</title>{% endblock %}
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+            {% block sidebar %}
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'course_management_basic' cid=cid course_number=course_number %}">基本信息</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'add_student' cid=cid course_number=course_number %}">学生管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'change_score' cid=cid course_number=course_number %}">成绩管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'basic_info' %}">返回</a></li>
+                </ul>
+            {% endblock %}
+        </div>
+        <div class="col-sm-10">{% block content %}{% endblock %}</div>
+      </div>
+    </div>
+    <!-- Add Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

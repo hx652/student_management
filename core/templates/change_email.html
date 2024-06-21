@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label>旧邮箱: {{ old_email }}</label><br>
+    {{ form.as_p }}
+    <button type="submit">更改邮箱</button>
+</form>
+{% if error %}
+    <p>Something worng, please try again</p>
+{% endif %}
+
+{% endblock %}

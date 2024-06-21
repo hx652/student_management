@@ -1,0 +1,65 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+
+    <!-- 搜索过滤器表单 -->
+    <form action="{% url 'all_course' %}" method="get" class="form-inline my-2">
+      {% for field in form %}
+        <div class="form-group mx-sm-3 mb-2">
+          {{ field.label_tag }} {{ field }}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary mb-2">搜索</button>
+    </form>
+
+    <table class="table table-striped">
+      <tr>
+        <th>操作</th>
+        <th>课程编号</th>
+        <th>课程名称</th>
+        <th>课堂号</th>
+        <th>学时</th>
+        <th>学分</th>
+        <th>授课教师</th>
+        <th>详情</th>
+      </tr>
+      {% for course in page_obj %}
+      <tr>
+        <td>
+          <form action="{% url 'select_course' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="course_cid" value="{{ course.1 }}">
+            <input type="hidden" name="course_number" value="{{ course.2 }}">
+            <button type="submit" class="btn btn-success">选课</button>
+          </form>
+        </td>
+        <td>{{ course.1 }}</td>
+        <td>{{ course.0 }}</td>
+        <td>{{ course.2 }}</td>
+        <td>{{ course.3 }}</td>
+        <td>{{ course.4 }}</td>
+        <td>{{ course.6 }}</td>
+        <td><a href="{% url 'course_detail' cid=course.1 course_number=course.2 %}" class="btn btn-info">详情</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <!-- 分页控件 -->
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+          <a href="?page=1" class="btn btn-light">« 第一页</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-light">上一页</a>
+        {% endif %} 
+        <span class="current">
+          第 {{ page_obj.number }} 页, 共 {{ page_obj.paginator.num_pages }} 页
+        </span> 
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="btn btn-light">下一页</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-light">最后一页 »</a>
+        {% endif %}
+      </span>
+    </div>
+</div>
+
+{% endblock %}

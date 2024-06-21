@@ -1,0 +1,21 @@
+{% block title %}
+    <script>
+        // 检查Django传递的变量
+        if ("{{ result }}" === "0") {
+            alert('添加成功');
+            window.location.href = "{% url 'all_course' %}";
+        }
+        else if("{{ result }}" === "-1") {
+            alert('已选中该课程')
+            window.location.href = "{% url 'all_course' %}";
+        }
+        else if("{{ result }}" === "-2") {
+            alert('课堂已满')
+            window.location.href = "{% url 'all_course' %}";
+        }
+        else if("{{ result }}" === "-3") {
+            alert('不处于选课状态')
+            window.location.href = "{% url 'all_course' %}";
+        }
+    </script>
+{% endblock %}

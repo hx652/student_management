@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item">课程名：{{ course.0 }}</li>
+        <li class="list-group-item">课程号：{{ course.1 }}</li>
+        <li class="list-group-item">课堂号：{{ course.2 }}</li>
+        <li class="list-group-item">学时：{{ course.3 }}</li>
+        <li class="list-group-item">学分：{{ course.4 }}</li>
+        <li class="list-group-item">开课学院：{{ course.5 }}</li>
+        <li class="list-group-item">授课教师：{{ course.6 }}</li>
+        <li class="list-group-item">状态：
+            {% if course.7 == -1 %}
+                正在选课
+            {% elif course.7 == 0 %}
+                正在进行
+            {% elif course.7 == 1 %}
+                结束
+            {% else %}
+                {{ course.7 }}
+            {% endif %}
+        </li>
+        <li class="list-group-item">已选人数/最大人数：{{ course.9 }} / {{ course.10 }}</li>
+    </ul>
+</div>
+{% endblock %}
